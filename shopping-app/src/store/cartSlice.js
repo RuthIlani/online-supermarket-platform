@@ -1,4 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import api from '../services/api';
+
+// Async thunks
+export const fetchCategoriesAndProductsAsync = createAsyncThunk(
+  'cart/fetchCategoriesAndProducts',
+  async () => {
+    const response = await api.fetchCategoriesAndProducts();
+    return response;
+  }
+);
+
+export const submitOrderAsync = createAsyncThunk(
+  'cart/submitOrder',
+  async (orderData) => {
+    const response = await api.submitOrder(orderData);
+    return response;
+  }
+);
 
 const initialState = {
   cartItems: [],
@@ -52,6 +70,37 @@ const cartSlice = createSlice({
     setError: (state, action) => {
       state.error = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      // fetchCategoriesAndProductsAsync
+      .addCase(fetchCategoriesAndProductsAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCategoriesAndProductsAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categories = action.payload.categories;
+        state.products = action.payload.products;
+      })
+      .addCase(fetchCategoriesAndProductsAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      // submitOrderAsync
+      .addCase(submitOrderAsync.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(submitOrderAsync.fulfilled, (state, action) => {
+        state.loading = false;
+        // Clear cart after successful order submission
+        state.cartItems = [];
+      })
+      .addCase(submitOrderAsync.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 
