@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { submitOrderAsync } from '../../store/cartSlice';
+import { isCustomerFormValid } from '../../utils/validation';
 import OrderHeader from './Header/OrderHeader';
 import CustomerDetailsForm from './CustomerDetails/CustomerDetailsForm';
 import OrderItemsList from './OrderItems/OrderItemsList';
@@ -32,27 +33,7 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
   };
 
   const validateForm = () => {
-    const fullNameValid = customerDetails.fullName?.trim() && 
-                          customerDetails.fullName.trim().length >= 2 &&
-                          /^[א-תa-zA-Z\s]+$/.test(customerDetails.fullName.trim());
-    
-    const emailValid = customerDetails.email?.trim() && 
-                       /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerDetails.email);
-    
-    const addressValid = customerDetails.address?.trim() && 
-                         customerDetails.address.trim().length >= 10;
-
-    console.log('Form validation debug:', {
-      fullName: customerDetails.fullName,
-      fullNameValid,
-      email: customerDetails.email,
-      emailValid,
-      address: customerDetails.address,
-      addressValid,
-      addressLength: customerDetails.address?.trim().length
-    });
-    
-    return fullNameValid && emailValid && addressValid;
+    return isCustomerFormValid(customerDetails);
   };
 
   const handleSubmitOrder = async () => {
@@ -80,8 +61,17 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
       await dispatch(submitOrderAsync(orderData)).unwrap();
       setOrderSubmitted(true);
     } catch (error) {
-      alert('שגיאה בשליחת ההזמנה. אנא נסה שוב.');
-      console.error('Order submission error:', error);
+      // In production, you would log this to a proper logging service
+      // console.error('Order submission error:', error);
+      
+      // Show user-friendly error message
+      const errorMessage = error?.message || 'שגיאה בשליחת ההזמנה. אנא נסה שוב.';
+      alert(errorMessage);
+      
+      // In a real app, you might want to:
+      // - Send error to logging service (Sentry, LogRocket, etc.)
+      // - Show a proper error dialog instead of alert
+      // - Provide retry functionality
     } finally {
       setIsSubmitting(false);
     }
