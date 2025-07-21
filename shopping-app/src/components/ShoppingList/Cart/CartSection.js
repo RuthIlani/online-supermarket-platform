@@ -5,7 +5,7 @@ import EmptyCart from './EmptyCart';
 import CartFooter from './CartFooter';
 import './CartSection.scss';
 
-const CartSection = ({ cartItems, totalPrice }) => {
+const CartSection = ({ cartItems, totalPrice, onProceedToOrder }) => {
   const dispatch = useDispatch();
 
   // Handle updating item quantity in cart
@@ -28,9 +28,7 @@ const CartSection = ({ cartItems, totalPrice }) => {
       alert('העגלה ריקה! אנא הוסף מוצרים לפני המשך להזמנה.');
       return;
     }
-    // TODO: Navigate to order/checkout screen
-    console.log('Continuing to order with items:', cartItems);
-    alert(`ממשיך להזמנה עם ${cartItems.length} פריטים. סך הכל: ₪${totalPrice.toFixed(2)}`);
+    onProceedToOrder && onProceedToOrder();
   };
 
   return (

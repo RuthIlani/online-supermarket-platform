@@ -7,7 +7,7 @@ import { CartSection } from './Cart';
 import { LoadingState, ErrorState } from './States';
 import './ShoppingListScreen.scss';
 
-const ShoppingListScreen = () => {
+const ShoppingListScreen = ({ onProceedToOrder }) => {
   const { cartItems, categories, products, loading, error } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   
@@ -57,6 +57,7 @@ const ShoppingListScreen = () => {
         <CartSection 
           cartItems={cartItems}
           totalPrice={totalPrice}
+          onProceedToOrder={onProceedToOrder}
         />
       </div>
     </div>

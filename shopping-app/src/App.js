@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategoriesAndProductsAsync } from './store/cartSlice';
 import './App.css';
-import { ShoppingListScreen } from './components';
+import { ShoppingListScreen, OrderSummaryScreen } from './components';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('shopping');
@@ -20,6 +20,11 @@ function App() {
   // Handle proceeding to order screen
   const handleProceedToOrder = () => {
     setCurrentScreen('order');
+  };
+
+  // Handle going back to shopping
+  const handleBackToShopping = () => {
+    setCurrentScreen('shopping');
   };
 
   if (loading) {
@@ -48,6 +53,8 @@ function App() {
     <div className="App">
       {currentScreen === 'shopping' ? (
         <ShoppingListScreen onProceedToOrder={handleProceedToOrder} />
+      ) : currentScreen === 'order' ? (
+        <OrderSummaryScreen onBackToShopping={handleBackToShopping} />
       ) : (
         <header className="App-header">
           <h1>Hello Online Supermarket!</h1>         
