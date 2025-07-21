@@ -18,7 +18,6 @@ const api = {
               nameEn: 'Apples',
               price: 8.90,
               categoryId: 1,
-              image: '/images/apples.jpg',
               unit: 'ק"ג',
               description: 'תפוחים אדומים טריים ומתוקים'
             },
@@ -28,7 +27,6 @@ const api = {
               nameEn: 'Bananas',
               price: 6.50,
               categoryId: 1,
-              image: '/images/bananas.jpg',
               unit: 'ק"ג',
               description: 'בננות צהובות בשלות'
             },
@@ -38,7 +36,6 @@ const api = {
               nameEn: 'Carrots',
               price: 4.90,
               categoryId: 1,
-              image: '/images/carrots.jpg',
               unit: 'ק"ג',
               description: 'גזר תינוק טרי ומתוק'
             },
@@ -49,7 +46,6 @@ const api = {
               nameEn: 'Milk 3%',
               price: 5.90,
               categoryId: 2,
-              image: '/images/milk.jpg',
               unit: 'ליטר',
               description: 'חלב טרי בד 3% שומן'
             },
@@ -59,7 +55,6 @@ const api = {
               nameEn: 'Eggs',
               price: 12.90,
               categoryId: 2,
-              image: '/images/eggs.jpg',
               unit: '12 יח׳',
               description: 'ביצים טריות מחווה'
             },
@@ -69,7 +64,6 @@ const api = {
               nameEn: 'Yellow Cheese',
               price: 18.90,
               categoryId: 2,
-              image: '/images/cheese.jpg',
               unit: '200 גרם',
               description: 'גבינה צהובה קשה איכותית'
             },
@@ -80,7 +74,6 @@ const api = {
               nameEn: 'Fresh Chicken',
               price: 24.90,
               categoryId: 3,
-              image: '/images/chicken.jpg',
               unit: 'ק"ג',
               description: 'עוף טרי איכותי'
             },
@@ -90,7 +83,6 @@ const api = {
               nameEn: 'Ground Beef',
               price: 42.90,
               categoryId: 3,
-              image: '/images/ground-beef.jpg',
               unit: 'ק"ג',
               description: 'בשר בקר טחון רזה 5%'
             },
@@ -100,7 +92,6 @@ const api = {
               nameEn: 'Salmon',
               price: 89.90,
               categoryId: 3,
-              image: '/images/salmon.jpg',
               unit: 'ק"ג',
               description: 'פילה סלמון טרי ללא עצמות'
             },
@@ -111,7 +102,6 @@ const api = {
               nameEn: 'Brown Bread',
               price: 8.50,
               categoryId: 4,
-              image: '/images/brown-bread.jpg',
               unit: 'יח׳',
               description: 'לחם שחור מקמח מלא'
             },
@@ -121,7 +111,6 @@ const api = {
               nameEn: 'Challah',
               price: 12.90,
               categoryId: 4,
-              image: '/images/challah.jpg',
               unit: 'יח׳',
               description: 'חלות שבת טריות וריחניות'
             },
@@ -131,7 +120,6 @@ const api = {
               nameEn: 'Rugelach',
               price: 15.90,
               categoryId: 4,
-              image: '/images/rugelach.jpg',
               unit: '6 יח׳',
               description: 'רוגעלך במילוי שוקולד וקינמון'
             },

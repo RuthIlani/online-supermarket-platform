@@ -1,0 +1,186 @@
+/* QuantityControl.scss - Reusable Quantity Control Component */
+
+// Variables
+$primary-color: #2c5aa0;
+$success-color: #28a745;
+$white: white;
+$border-light: #eee;
+$border-medium: #ddd;
+$light-bg: #f5f5f5;
+$text-primary: #333;
+$text-muted: #999;
+
+// Mixins
+@mixin button-hover($bg-color, $hover-color) {
+  background-color: $bg-color;
+  transition: all 0.2s ease;
+  
+  &:hover:not(:disabled) {
+    background-color: $hover-color;
+  }
+}
+
+@mixin card-shadow($hover: false) {
+  @if $hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  } @else {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  background-color: $light-bg;
+  border-radius: 20px;
+  border: 1px solid $border-medium;
+  overflow: hidden;
+
+  .quantity-btn {
+    border: none;
+    background-color: $white;
+    color: $primary-color;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    @include card-shadow();
+
+    &:hover:not(:disabled) {
+      background-color: $primary-color;
+      color: $white;
+      @include card-shadow(true);
+    }
+
+    &:active:not(:disabled) {
+      transform: scale(0.95);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &.decrease {
+      border-radius: 50% 0 0 50%;
+    }
+
+    &.increase {
+      border-radius: 0 50% 50% 0;
+    }
+  }
+
+  .quantity-input,
+  .quantity-display {
+    text-align: center;
+    border: none;
+    background-color: $white;
+    font-weight: 600;
+    color: $text-primary;
+    outline: none;
+
+    &:focus {
+      @include card-shadow();
+    }
+  }
+
+  .quantity-input {
+    // Hide spinner arrows
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
+
+    &[type=number] {
+      -moz-appearance: textfield;
+      appearance: textfield;
+    }
+  }
+
+  .quantity-display {
+    background-color: $white;
+    border-left: 1px solid $border-light;
+    border-right: 1px solid $border-light;
+  }
+
+  // Size variants
+  &.small {
+    gap: 0.4rem;
+    padding: 0.2rem;
+    border-radius: 15px;
+
+    .quantity-btn {
+      width: 22px;
+      height: 22px;
+      font-size: 0.9rem;
+    }
+
+    .quantity-input,
+    .quantity-display {
+      width: 35px;
+      padding: 0.1rem 0.3rem;
+      font-size: 0.8rem;
+      border-radius: 3px;
+    }
+  }
+
+  &.normal {
+    gap: 0.5rem;
+    padding: 0.25rem;
+
+    .quantity-btn {
+      width: 28px;
+      height: 28px;
+      font-size: 1rem;
+    }
+
+    .quantity-input,
+    .quantity-display {
+      width: 50px;
+      padding: 0.25rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
+    }
+  }
+
+  &.large {
+    gap: 0.6rem;
+    padding: 0.3rem;
+    border-radius: 25px;
+
+    .quantity-btn {
+      width: 32px;
+      height: 32px;
+      font-size: 1.1rem;
+    }
+
+    .quantity-input,
+    .quantity-display {
+      width: 60px;
+      padding: 0.3rem;
+      font-size: 1rem;
+      border-radius: 6px;
+    }
+  }
+}
+
+// Cart-specific styling
+.cart-quantity-control {
+  .quantity-btn {
+    border-radius: 50%;
+  }
+}
+
+// Product card specific styling
+.product-quantity-control {
+  max-width: 120px;
+  border-radius: 8px;
+
+  .quantity-btn {
+    border-radius: 4px;
+  }
+}
