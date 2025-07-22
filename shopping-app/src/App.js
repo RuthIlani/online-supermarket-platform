@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategoriesAndProductsAsync } from './store/cartSlice';
 import './App.css';
-import { ShoppingListScreen, OrderSummaryScreen } from './components';
+import { ShoppingListScreen, OrderSummaryScreen, SuccessScreen } from './components';
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState('shopping');
@@ -27,13 +27,24 @@ function App() {
     setCurrentScreen('shopping');
   };
 
+  // Handle successful order submission
+  const handleOrderSuccess = () => {
+    setCurrentScreen('success');
+  };
+
+  // Handle starting a new order from success screen
+  const handleStartNewOrder = () => {
+    // Reset to shopping screen
+    setCurrentScreen('shopping');
+    // Optionally dispatch reset actions
+    dispatch({ type: 'cart/clearCart' });
+    dispatch({ type: 'CLEAR_ORDER_SUCCESS' });
+  };
+
   if (loading) {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Loading...</h1>
-          <p>טוען מוצרים וקטגוריות...</p>
-        </header>
+      <div className="App">      
+          <p>טוען נתונים...</p>
       </div>
     );
   }
@@ -41,10 +52,8 @@ function App() {
   if (error) {
     return (
       <div className="App">
-        <header className="App-header">
           <h1>Error</h1>
           <p>שגיאה בטעינת המידע: {error}</p>
-        </header>
       </div>
     );
   }
@@ -54,7 +63,12 @@ function App() {
       {currentScreen === 'shopping' ? (
         <ShoppingListScreen onProceedToOrder={handleProceedToOrder} />
       ) : currentScreen === 'order' ? (
-        <OrderSummaryScreen onBackToShopping={handleBackToShopping} />
+        <OrderSummaryScreen 
+          onBackToShopping={handleBackToShopping} 
+          onOrderSuccess={handleOrderSuccess}
+        />
+      ) : currentScreen === 'success' ? (
+        <SuccessScreen onNewOrder={handleStartNewOrder} />
       ) : (
         <header className="App-header">
           <h1>Hello Online Supermarket!</h1>         

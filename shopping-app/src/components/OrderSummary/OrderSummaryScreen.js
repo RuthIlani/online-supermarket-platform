@@ -8,7 +8,7 @@ import OrderItemsList from './OrderItems/OrderItemsList';
 import OrderTotal from './OrderTotal/OrderTotal';
 import './OrderSummaryScreen.scss';
 
-const OrderSummaryScreen = ({ onBackToShopping }) => {
+const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
   const [customerDetails, setCustomerDetails] = useState({
     fullName: '',
     email: '',
@@ -16,7 +16,6 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [orderSubmitted, setOrderSubmitted] = useState(false);
 
   const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
@@ -48,6 +47,7 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
     }
 
     setIsSubmitting(true);
+    let orderSucceeded = false;
 
     try {
       const orderData = {
@@ -59,13 +59,18 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
       };
 
       await dispatch(submitOrderAsync(orderData)).unwrap();
-      setOrderSubmitted(true);
+      orderSucceeded = true;
+      
+      // Navigate to success screen immediately after successful submission
+      if (onOrderSuccess) {
+        onOrderSuccess();
+      }
     } catch (error) {
       // In production, you would log this to a proper logging service
       // console.error('Order submission error:', error);
       
       // Show user-friendly error message
-      const errorMessage = error?.message || 'שגיאה בשליחת ההזמנה. אנא נסה שוב.';
+      const errorMessage = error?.message || 'שگיאה בשליחת ההזמנה. אנא נסה שוב.';
       alert(errorMessage);
       
       // In a real app, you might want to:
@@ -73,32 +78,12 @@ const OrderSummaryScreen = ({ onBackToShopping }) => {
       // - Show a proper error dialog instead of alert
       // - Provide retry functionality
     } finally {
-      setIsSubmitting(false);
+      // Only reset loading state if order didn't succeed (to prevent flash)
+      if (!orderSucceeded) {
+        setIsSubmitting(false);
+      }
     }
   };
-
-  if (orderSubmitted) {
-    return (
-      <div className="order-summary-screen rtl" dir="rtl">
-        <div className="order-success">
-          <div className="success-content">
-            <div className="success-icon">✓</div>
-            <h1>ההזמנה נשלחה בהצלחה!</h1>
-            <p>תודה על ההזמנה. נחזור אליך בהקדם.</p>
-            <button 
-              className="new-order-btn"
-              onClick={() => {
-                setOrderSubmitted(false);
-                onBackToShopping();
-              }}
-            >
-              הזמנה חדשה
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="order-summary-screen rtl" dir="rtl">
