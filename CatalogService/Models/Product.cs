@@ -5,6 +5,8 @@ namespace CatalogService.Models
 {
     public class Product
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -16,6 +18,8 @@ namespace CatalogService.Models
         [Required]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
         public decimal Price { get; set; }
+
+        public string Unit { get; set; } = string.Empty;
 
         [Required]
         public required int CategoryId { get; set; }

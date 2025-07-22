@@ -27,10 +27,33 @@ artifacts/
 # Entity Framework
 Migrations/
 
-# Environment
+# Environment and sensitive config
 appsettings.Development.json
+appsettings.Production.json
 appsettings.Local.json
+secrets.json
 .env
+.env.*
+*.key
+*credentials*
+*password*
+*secret*
 
 # Editor
 .vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# OS generated files
+[Tt]humbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Others
+*.log
+
+# Exclude any file containing database credentials
+*dbcredentials*
+*database*credentials*
