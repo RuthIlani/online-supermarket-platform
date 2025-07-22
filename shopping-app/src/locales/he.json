@@ -1,0 +1,94 @@
+{
+  "Loading data...": "טוען נתונים...",
+  "Error": "שגיאה",
+  "Data loading error:": "שגיאה בטעינת המידע:",
+  "orderSuccess": {
+    "title": "ההזמנה התקבלה בהצלחה!",
+    "thankYou": "תודה על ההזמנה שלך. נתחיל להכין אותה בהקדם.",
+    "newOrderBtn": "התחל הזמנה חדשה"
+  },
+  "orderTotal": {
+    "fillAllFields": "אנא מלא את כל השדות הנדרשים",
+    "fullNameMin": "שם מלא (לפחות 2 תווים)",
+    "fullNameLetters": "שם מלא (רק אותיות ורווחים)",
+    "emailRequired": "כתובת אימייל",
+    "emailValid": "כתובת אימייל תקינה",
+    "addressRequired": "כתובת",
+    "addressMin": "כתובת מלאה (לפחות 10 תווים)",
+    "required": "נדרש",
+    "paymentSummary": "סיכום תשלום",
+    "productsTotal": "סה\"כ מוצרים",
+    "deliveryFee": "עלות משלוח",
+    "freeDeliveryInfo": "משלוח חינם מעל ₪100",
+    "totalToPay": "סה\"כ לתשלום",
+    "paymentMethods": "אמצעי תשלום",
+    "cashOnDelivery": "התשלום יבוצע במזומן בעת הקבלה",
+    "deliveryTime": "זמן משלוח",
+    "deliveryEta": "ההזמנה תגיע תוך 24-48 שעות",
+    "sendingOrder": "שולח הזמנה...",
+    "sendOrder": "שלח הזמנה"
+  },
+  "orderHeader": {
+    "backToShopping": "חזרה לקנייה",
+    "orderSummary": "סיכום ההזמנה"
+  },
+  "orderItems": {
+    "itemsInOrder": "פריטים בהזמנה",
+    "noItems": "אין פריטים בהזמנה",
+    "product": "מוצר",
+    "quantity": "כמות",
+    "unitPrice": "מחיר יחידה",
+    "total": "סה\"כ",
+    "productsTotal": "סה\"כ מוצרים"
+  },
+  "orderSummary": {
+    "fillAllFields": "אנא מלא את כל השדות הנדרשים",
+    "cartEmpty": "העגלה ריקה",
+    "orderError": "שגיאה בשליחת ההזמנה. אנא נסה שוב.",
+    "processingOrder": "מעבד הזמנה..."
+  },
+  "cart": {
+    "totalToPay": "סה\"כ לתשלום",
+    "continueToOrder": "המשך להזמנה",
+    "remove": "הסר",
+    "cartEmptyAlert": "העגלה ריקה! אנא הוסף מוצרים לפני המשך להזמנה.",
+    "shoppingCart": "עגלת קניות",
+    "items": "פריטים",
+    "cartEmpty": "העגלה ריקה",
+    "selectProductsToStart": "בחר מוצרים מהרשימה כדי להתחיל"
+  },
+  "shopping": {
+    "shoppingList": "רשימת קניות",
+    "totalItems": "סה\"כ פריטים",
+    "totalPrice": "סה\"כ מחיר",
+    "selectCategory": "בחר קטגוריה",
+    "allProducts": "כל המוצרים",
+    "addToCart": "הוסף לעגלה",
+    "addQuantityToCart": "הוסף {{quantity}} לעגלה"
+  },
+  "common": {
+    "error": "שגיאה",
+    "loading": "טוען..."
+  },
+  "validation": {
+    "fullName": {
+      "required": "שם מלא הוא שדה חובה",
+      "minLength": "שם חייב להכיל לפחות 2 תווים",
+      "invalidPattern": "שם יכול להכיל רק אותיות ורווחים"
+    },
+    "email": {
+      "required": "אימייל הוא שדה חובה",
+      "invalidFormat": "פורמט האימייל אינו תקין"
+    },
+    "address": {
+      "required": "כתובת היא שדה חובה",
+      "minLength": "אנא הכנס כתובת מלאה (לפחות 10 תווים)"
+    },
+    "common": {
+      "required": "שדה זה הוא חובה",
+      "minLength": "נדרש לפחות {{count}} תווים",
+      "maxLength": "מקסימום {{count}} תווים",
+      "invalidFormat": "פורמט שדה אינו תקין"
+    }
+  }
+}

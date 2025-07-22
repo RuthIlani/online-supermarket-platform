@@ -1,0 +1,96 @@
+{
+  "Loading data...": "Loading data...",
+  "Error": "Error",
+  "Data loading error:": "Data loading error:"
+  ,
+  "orderSuccess": {
+    "title": "Order received successfully!",
+    "thankYou": "Thank you for your order. We will start preparing it soon.",
+    "newOrderBtn": "Start a new order"
+  }
+  ,
+  "orderTotal": {
+    "fillAllFields": "Please fill in all required fields",
+    "fullNameMin": "Full name (at least 2 characters)",
+    "fullNameLetters": "Full name (letters and spaces only)",
+    "emailRequired": "Email address",
+    "emailValid": "Valid email address",
+    "addressRequired": "Address",
+    "addressMin": "Full address (at least 10 characters)",
+    "required": "Required",
+    "paymentSummary": "Payment Summary",
+    "productsTotal": "Products total",
+    "deliveryFee": "Delivery fee",
+    "freeDeliveryInfo": "Free delivery over ₪100",
+    "totalToPay": "Total to pay",
+    "paymentMethods": "Payment Methods",
+    "cashOnDelivery": "Payment will be made in cash upon delivery",
+    "deliveryTime": "Delivery Time",
+    "deliveryEta": "Your order will arrive within 24-48 hours",
+    "sendingOrder": "Sending order...",
+    "sendOrder": "Send order"
+  },
+  "orderHeader": {
+    "backToShopping": "Back to shopping",
+    "orderSummary": "Order Summary"
+  },
+  "orderItems": {
+    "itemsInOrder": "Items in order",
+    "noItems": "No items in order",
+    "product": "Product",
+    "quantity": "Quantity",
+    "unitPrice": "Unit Price",
+    "total": "Total",
+    "productsTotal": "Products Total"
+  },
+  "orderSummary": {
+    "fillAllFields": "Please fill in all required fields",
+    "cartEmpty": "Cart is empty",
+    "orderError": "Error submitting order. Please try again.",
+    "processingOrder": "Processing order..."
+  },
+  "cart": {
+    "totalToPay": "Total to pay",
+    "continueToOrder": "Continue to order",
+    "remove": "Remove",
+    "cartEmptyAlert": "Cart is empty! Please add products before continuing to order.",
+    "shoppingCart": "Shopping Cart",
+    "items": "items",
+    "cartEmpty": "Cart is empty",
+    "selectProductsToStart": "Select products from the list to start"
+  },
+  "shopping": {
+    "shoppingList": "Shopping List",
+    "totalItems": "Total items",
+    "totalPrice": "Total price",
+    "selectCategory": "Select category",
+    "allProducts": "All products",
+    "addToCart": "Add to cart",
+    "addQuantityToCart": "Add {{quantity}} to cart"
+  },
+  "common": {
+    "error": "Error",
+    "loading": "Loading..."
+  },
+  "validation": {
+    "fullName": {
+      "required": "Full name is a required field",
+      "minLength": "Name must contain at least 2 characters",
+      "invalidPattern": "Name can contain only letters and spaces"
+    },
+    "email": {
+      "required": "Email is a required field",
+      "invalidFormat": "Email format is invalid"
+    },
+    "address": {
+      "required": "Address is a required field",
+      "minLength": "Please enter a complete address (at least 10 characters)"
+    },
+    "common": {
+      "required": "This field is required",
+      "minLength": "At least {{count}} characters required",
+      "maxLength": "Maximum {{count}} characters",
+      "invalidFormat": "Field format is invalid"
+    }
+  }
+}

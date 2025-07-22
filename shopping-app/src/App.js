@@ -4,12 +4,15 @@ import { fetchCategoriesAndProductsAsync } from './store/cartSlice';
 import './App.css';
 import { ShoppingListScreen, OrderSummaryScreen, SuccessScreen } from './components';
 import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 function AppRoutes() {
   const loading = useSelector((state) => state.cart.loading);
   const error = useSelector((state) => state.cart.error);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchCategoriesAndProductsAsync());
@@ -18,7 +21,7 @@ function AppRoutes() {
   if (loading) {
     return (
       <div className="App">      
-          <p>טוען נתונים...</p>
+          <p>{t('Loading data...')}</p>
       </div>
     );
   }
@@ -26,8 +29,8 @@ function AppRoutes() {
   if (error) {
     return (
       <div className="App">
-          <h1>Error</h1>
-          <p>שגיאה בטעינת המידע: {error}</p>
+          <h1>{t('Error')}</h1>
+          <p>{t('Data loading error:')} {error}</p>
       </div>
     );
   }

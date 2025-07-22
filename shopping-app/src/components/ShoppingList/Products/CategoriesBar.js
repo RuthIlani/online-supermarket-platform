@@ -1,6 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const CategoriesBar = ({ categories, selectedCategory, onCategorySelect }) => {
+  const { t } = useTranslation();
+
   const handleCategoryChange = (event) => {
     const categoryId = event.target.value;
     if (categoryId === 'all') {
@@ -14,7 +17,7 @@ const CategoriesBar = ({ categories, selectedCategory, onCategorySelect }) => {
   return (
     <div className="categories-bar">
       <label htmlFor="category-select" className="category-label">
-        בחר קטגוריה:
+        {t('shopping.selectCategory')}:
       </label>
       <select 
         id="category-select"
@@ -22,7 +25,7 @@ const CategoriesBar = ({ categories, selectedCategory, onCategorySelect }) => {
         value={selectedCategory ? selectedCategory.id.toString() : 'all'}
         onChange={handleCategoryChange}
       >
-        <option value="all">כל המוצרים</option>
+        <option value="all">{t('shopping.allProducts')}</option>
         {categories.map(category => (
           <option key={category.id} value={category.id.toString()}>
             {category.name}

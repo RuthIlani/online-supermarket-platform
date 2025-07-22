@@ -1,7 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { QuantityControl } from '../../Shared';
 
 const CartItem = ({ item, onQuantityChange, onRemove }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="cart-item">
       <div className="item-info">
@@ -22,7 +25,7 @@ const CartItem = ({ item, onQuantityChange, onRemove }) => {
         onClick={() => onRemove(item.id)}
         className="remove-btn"
       >
-        הסר
+        {t('cart.remove')}
       </button>
     </div>
   );

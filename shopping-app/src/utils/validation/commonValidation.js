@@ -2,9 +2,11 @@
  * Common validation utilities
  * Reusable validation functions that can be used across the application
  * 
- * @fileoverview Generic validation helpers for various data types
+ * @fileoverview Generic validation helpers for various data types with i18n support
  * @author Shopping App Team
  */
+
+import i18n from '../../i18n';
 
 /**
  * Common validation patterns
@@ -119,7 +121,7 @@ export const createValidator = (rules) => {
     
     // Check required
     if (rules.required && !trimmed) {
-      return rules.messages?.required || 'שדה זה הוא חובה';
+      return rules.messages?.required || i18n.t('validation.common.required');
     }
     
     // Skip other validations if field is empty and not required
@@ -129,17 +131,17 @@ export const createValidator = (rules) => {
     
     // Check minimum length
     if (rules.minLength && !hasMinLength(trimmed, rules.minLength)) {
-      return rules.messages?.minLength || `נדרש לפחות ${rules.minLength} תווים`;
+      return rules.messages?.minLength || i18n.t('validation.common.minLength', { count: rules.minLength });
     }
     
     // Check maximum length
     if (rules.maxLength && !hasMaxLength(trimmed, rules.maxLength)) {
-      return rules.messages?.maxLength || `מקסימום ${rules.maxLength} תווים`;
+      return rules.messages?.maxLength || i18n.t('validation.common.maxLength', { count: rules.maxLength });
     }
     
     // Check pattern
     if (rules.pattern && !matchesPattern(trimmed, rules.pattern)) {
-      return rules.messages?.pattern || 'פורמט שדה אינו תקין';
+      return rules.messages?.pattern || i18n.t('validation.common.invalidFormat');
     }
     
     return '';

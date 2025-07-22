@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { QuantityControl } from '../../Shared';
 
 const ProductCard = ({ product, onAddToCart }) => {
+  const { t } = useTranslation();
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
@@ -32,7 +34,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         className="add-to-cart-btn"
         onClick={handleAddToCart}
       >
-        הוסף {quantity > 1 ? `${quantity} ` : ''}לעגלה
+        {quantity > 1 ? t('shopping.addQuantityToCart', { quantity }) : t('shopping.addToCart')}
       </button>
     </div>
   );

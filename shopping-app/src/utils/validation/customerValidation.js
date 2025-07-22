@@ -2,9 +2,11 @@
  * Customer validation utilities
  * Reusable validation logic for customer-related data across the application
  * 
- * @fileoverview Centralized customer validation with Hebrew language support
+ * @fileoverview Centralized customer validation with i18n support
  * @author Shopping App Team
  */
+
+import i18n from '../../i18n';
 
 // Customer-specific validation rules
 export const CUSTOMER_VALIDATION_RULES = {
@@ -12,23 +14,23 @@ export const CUSTOMER_VALIDATION_RULES = {
     MIN_LENGTH: 2,
     PATTERN: /^[א-תa-zA-Z\s]+$/,
     ERROR_MESSAGES: {
-      REQUIRED: 'שם מלא הוא שדה חובה',
-      MIN_LENGTH: 'שם חייב להכיל לפחות 2 תווים',
-      INVALID_PATTERN: 'שם יכול להכיל רק אותיות ורווחים'
+      get REQUIRED() { return i18n.t('validation.fullName.required'); },
+      get MIN_LENGTH() { return i18n.t('validation.fullName.minLength'); },
+      get INVALID_PATTERN() { return i18n.t('validation.fullName.invalidPattern'); }
     }
   },
   EMAIL: {
     PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     ERROR_MESSAGES: {
-      REQUIRED: 'אימייל הוא שדה חובה',
-      INVALID_FORMAT: 'פורמט האימייל אינו תקין'
+      get REQUIRED() { return i18n.t('validation.email.required'); },
+      get INVALID_FORMAT() { return i18n.t('validation.email.invalidFormat'); }
     }
   },
   ADDRESS: {
     MIN_LENGTH: 10,
     ERROR_MESSAGES: {
-      REQUIRED: 'כתובת היא שדה חובה',
-      MIN_LENGTH: 'אנא הכנס כתובת מלאה (לפחות 10 תווים)'
+      get REQUIRED() { return i18n.t('validation.address.required'); },
+      get MIN_LENGTH() { return i18n.t('validation.address.minLength'); }
     }
   }
 };

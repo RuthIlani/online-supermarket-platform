@@ -1,8 +1,11 @@
+
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import './SuccessScreen.scss';
 
+
 const SuccessScreen = ({ onNewOrder }) => {
-  console.log('SuccessScreen component rendering');
+  const { t } = useTranslation();
 
   const handleNewOrder = () => {
     if (onNewOrder) {
@@ -17,16 +20,16 @@ const SuccessScreen = ({ onNewOrder }) => {
           ✓
         </div>
         <h1 className="success-message">
-          ההזמנה התקבלה בהצלחה!
+          {t('orderSuccess.title')}
         </h1>
         <p className="thank-you-text">
-          תודה על ההזמנה שלך. נתחיל להכין אותה בהקדם.
+          {t('orderSuccess.thankYou')}
         </p>
         <button 
           className="new-order-button"
           onClick={handleNewOrder}
         >
-          התחל הזמנה חדשה
+          {t('orderSuccess.newOrderBtn')}
         </button>
       </div>
     </div>

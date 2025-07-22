@@ -1,24 +1,26 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 const OrderItemsList = ({ items }) => {
+  const { t } = useTranslation();
   const subtotal = items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   return (
     <div className="order-items-list" dir="rtl">
-      <h2>פריטים בהזמנה ({items.length})</h2>
+      <h2>{t('orderItems.itemsInOrder')} ({items.length})</h2>
       
       <div className="items-container">
         {items.length === 0 ? (
           <div className="empty-order">
-            <p>אין פריטים בהזמנה</p>
+            <p>{t('orderItems.noItems')}</p>
           </div>
         ) : (
           <>
             <div className="items-header">
-              <span>מוצר</span>
-              <span>כמות</span>
-              <span>מחיר יחידה</span>
-              <span>סה"כ</span>
+              <span>{t('orderItems.product')}</span>
+              <span>{t('orderItems.quantity')}</span>
+              <span>{t('orderItems.unitPrice')}</span>
+              <span>{t('orderItems.total')}</span>
             </div>
             
             <div className="items-list">
@@ -45,7 +47,7 @@ const OrderItemsList = ({ items }) => {
             </div>
             
             <div className="items-subtotal">
-              <strong>סה"כ מוצרים: ₪{subtotal.toFixed(2)}</strong>
+              <strong>{t('orderItems.productsTotal')}: ₪{subtotal.toFixed(2)}</strong>
             </div>
           </>
         )}

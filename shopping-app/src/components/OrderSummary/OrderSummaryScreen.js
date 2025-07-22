@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch }      // Show user-friendly error message
+      const errorMessage = error?.message || t('orderSummary.orderError');
+      alert(errorMessage);om 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { submitOrderAsync } from '../../store/cartSlice';
 import { isCustomerFormValid } from '../../utils/validation';
 import OrderHeader from './Header/OrderHeader';
@@ -9,6 +12,7 @@ import OrderTotal from './OrderTotal/OrderTotal';
 import './OrderSummaryScreen.scss';
 
 const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
+  const { t } = useTranslation();
   const [customerDetails, setCustomerDetails] = useState({
     fullName: '',
     email: '',
@@ -37,12 +41,12 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
 
   const handleSubmitOrder = async () => {
     if (!validateForm()) {
-      alert('אנא מלא את כל השדות הנדרשים');
+      alert(t('orderSummary.fillAllFields'));
       return;
     }
 
     if (cartItems.length === 0) {
-      alert('העגלה ריקה');
+      alert(t('orderSummary.cartEmpty'));
       return;
     }
 
@@ -99,7 +103,7 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
         height: '100vh',
         fontSize: '1.5rem'
       }}>
-        <p>מעבד הזמנה...</p>
+        <p>{t('orderSummary.processingOrder')}</p>
       </div>
     );
   }
