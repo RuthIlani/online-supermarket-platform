@@ -1,14 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import './SuccessScreen.scss';
 
 const SuccessScreen = ({ onNewOrder }) => {
-  const dispatch = useDispatch();
-  const orderSuccess = useSelector(state => state.order?.success);
+  console.log('SuccessScreen component rendering');
 
   const handleNewOrder = () => {
-    // Clear any success state
-    dispatch({ type: 'CLEAR_ORDER_SUCCESS' });
     if (onNewOrder) {
       onNewOrder();
     }

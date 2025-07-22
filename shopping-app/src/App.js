@@ -1,45 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategoriesAndProductsAsync } from './store/cartSlice';
 import './App.css';
 import { ShoppingListScreen, OrderSummaryScreen, SuccessScreen } from './components';
+import { BrowserRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
-function App() {
-  const [currentScreen, setCurrentScreen] = useState('shopping');
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const categories = useSelector((state) => state.cart.categories);
-  const products = useSelector((state) => state.cart.products);
+function AppRoutes() {
   const loading = useSelector((state) => state.cart.loading);
   const error = useSelector((state) => state.cart.error);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchCategoriesAndProductsAsync());
   }, [dispatch]);
-
-  // Handle proceeding to order screen
-  const handleProceedToOrder = () => {
-    setCurrentScreen('order');
-  };
-
-  // Handle going back to shopping
-  const handleBackToShopping = () => {
-    setCurrentScreen('shopping');
-  };
-
-  // Handle successful order submission
-  const handleOrderSuccess = () => {
-    setCurrentScreen('success');
-  };
-
-  // Handle starting a new order from success screen
-  const handleStartNewOrder = () => {
-    // Reset to shopping screen
-    setCurrentScreen('shopping');
-    // Optionally dispatch reset actions
-    dispatch({ type: 'cart/clearCart' });
-    dispatch({ type: 'CLEAR_ORDER_SUCCESS' });
-  };
 
   if (loading) {
     return (
@@ -60,24 +34,29 @@ function App() {
 
   return (
     <div className="App">
-      {currentScreen === 'shopping' ? (
-        <ShoppingListScreen onProceedToOrder={handleProceedToOrder} />
-      ) : currentScreen === 'order' ? (
-        <OrderSummaryScreen 
-          onBackToShopping={handleBackToShopping} 
-          onOrderSuccess={handleOrderSuccess}
-        />
-      ) : currentScreen === 'success' ? (
-        <SuccessScreen onNewOrder={handleStartNewOrder} />
-      ) : (
-        <header className="App-header">
-          <h1>Hello Online Supermarket!</h1>         
-          <button onClick={() => setCurrentScreen('shopping')}>
-            Start Shopping
-          </button>
-        </header>
-      )}
+      <Routes>
+        <Route path="/" element={
+          <ShoppingListScreen onProceedToOrder={() => navigate('/order')} />
+        } />
+        <Route path="/order" element={
+          <OrderSummaryScreen 
+            onBackToShopping={() => navigate('/')}
+            onOrderSuccess={() => navigate('/success')}
+          />
+        } />
+        <Route path="/success" element={
+          <SuccessScreen onNewOrder={() => navigate('/')} />
+        } />
+      </Routes>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
 

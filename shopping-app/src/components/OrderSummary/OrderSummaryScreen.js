@@ -58,14 +58,18 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
         orderDate: new Date().toISOString()
       };
 
-      await dispatch(submitOrderAsync(orderData)).unwrap();
+      console.log('About to submit order:', orderData);
+      const result = await dispatch(submitOrderAsync(orderData)).unwrap();
+      console.log('Order submission result:', result);
       orderSucceeded = true;
       
-      // Navigate to success screen immediately after successful submission
+      console.log('Order submitted successfully, calling onOrderSuccess');
+      // Navigate immediately without setting isNavigating to avoid flash
       if (onOrderSuccess) {
         onOrderSuccess();
       }
     } catch (error) {
+      console.error('Order submission failed:', error);
       // In production, you would log this to a proper logging service
       // console.error('Order submission error:', error);
       
@@ -84,6 +88,21 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
       }
     }
   };
+
+  // Show loading screen while submitting order
+  if (isSubmitting) {
+    return (
+      <div className="order-summary-screen rtl" dir="rtl" style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        fontSize: '1.5rem'
+      }}>
+        <p>מעבד הזמנה...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="order-summary-screen rtl" dir="rtl">
