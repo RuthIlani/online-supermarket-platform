@@ -1,20 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import catalogApi from '../services/catalogApi';
 import api from '../services/api';
 
 // Async thunks
 export const fetchCategoriesAndProductsAsync = createAsyncThunk(
   'cart/fetchCategoriesAndProducts',
-  async () => {
-    const response = await api.fetchCategoriesAndProducts();
-    return response;
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await catalogApi.fetchCategoriesAndProducts();
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
 export const submitOrderAsync = createAsyncThunk(
   'cart/submitOrder',
-  async (orderData) => {
-    const response = await api.submitOrder(orderData);
-    return response;
+  async (orderData, { rejectWithValue }) => {
+    try {
+      const response = await api.submitOrder(orderData);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
 );
 
@@ -85,7 +94,7 @@ const cartSlice = createSlice({
       })
       .addCase(fetchCategoriesAndProductsAsync.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       })
       // submitOrderAsync
       .addCase(submitOrderAsync.pending, (state) => {
@@ -99,7 +108,7 @@ const cartSlice = createSlice({
       })
       .addCase(submitOrderAsync.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.payload || action.error.message;
       });
   },
 });
