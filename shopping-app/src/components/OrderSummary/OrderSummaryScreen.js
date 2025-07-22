@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch }      // Show user-friendly error message
-      const errorMessage = error?.message || t('orderSummary.orderError');
-      alert(errorMessage);om 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { submitOrderAsync } from '../../store/cartSlice';
 import { isCustomerFormValid } from '../../utils/validation';
@@ -78,7 +76,7 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
       // console.error('Order submission error:', error);
       
       // Show user-friendly error message
-      const errorMessage = error?.message || 'שگיאה בשליחת ההזמנה. אנא נסה שוב.';
+      const errorMessage = error?.message || t('orderSummary.orderError');
       alert(errorMessage);
       
       // In a real app, you might want to:

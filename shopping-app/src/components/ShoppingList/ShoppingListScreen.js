@@ -13,8 +13,6 @@ const ShoppingListScreen = ({ onProceedToOrder }) => {
   
   // Local state
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
 
   // Handle adding product to cart
   const handleAddToCart = (product, quantity = 1) => {
