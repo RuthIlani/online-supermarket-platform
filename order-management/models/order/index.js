@@ -4,8 +4,6 @@ const orderMethods = require('./orderMethods');
 
 const orderMiddleware = require('../../middleware/order/orderMiddleware');
 
-const orderHelpers = require('../../utils/order/orderHelpers');
-
 // Import the main Order model from the correct path
 const Order = require('./order');
 
