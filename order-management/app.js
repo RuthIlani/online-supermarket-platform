@@ -1,6 +1,11 @@
 const express = require('express');
-require('dotenv').config(); // Load environment variables from .env file
-const connectDB = require('./config/database'); // Database connection function
+const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+require('dotenv').config();
+
+const connectDB = require('./config/database');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,17 +14,42 @@ const PORT = process.env.PORT || 3001;
 console.log('🚀 Starting server...');
 connectDB();
 
-// Middleware for parsing JSON
-app.use(express.json());
+// Security middleware
+app.use(helmet());
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  credentials: true
+}));
 
-// Basic route for testing
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: {
+    success: false,
+    message: 'Too many requests from this IP, please try again later.'
+  }
+});
+app.use('/api', limiter);
+
+// Body parsing middleware
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Routes
 app.get('/', (req, res) => {
   res.json({
     message: '🛒 Order Management API is running successfully!',
+    version: '1.0.0',
     status: 'Server Running',
     database: 'Connected to MongoDB',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    endpoints: {
+      orders: '/api/orders',
+      health: '/health',
+      docs: '/api/docs'
+    }
   });
 });
 
@@ -29,6 +59,38 @@ app.get('/health', (req, res) => {
     status: 'OK',
     uptime: process.uptime(),
     memory: process.memoryUsage(),
+    timestamp: new Date().toISOString(),
+    database: 'Connected'
+  });
+});
+
+// API routes
+app.use('/api/orders', orderRoutes);
+
+// 404 handler
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
+    requestedUrl: req.originalUrl,
+    availableEndpoints: [
+      'GET /',
+      'GET /health',
+      'GET /api/orders',
+      'POST /api/orders'
+    ]
+  });
+});
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('🔴 Unhandled error:', err);
+  
+  res.status(err.status || 500).json({
+    success: false,
+    message: process.env.NODE_ENV === 'production' 
+      ? 'Internal server error' 
+      : err.message,
     timestamp: new Date().toISOString()
   });
 });
@@ -38,7 +100,11 @@ app.listen(PORT, () => {
   console.log('🎉 Server is running successfully!');
   console.log(`📍 URL: http://localhost:${PORT}`);
   console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log('📝 Test in browser or with curl');
+  console.log(`🔗 API Base: http://localhost:${PORT}/api/orders`);
+  console.log('📝 Test endpoints:');
+  console.log('   - GET  /health');
+  console.log('   - GET  /api/orders');
+  console.log('   - POST /api/orders/test (dev only)');
 });
 
 module.exports = app;

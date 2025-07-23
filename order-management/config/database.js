@@ -1,4 +1,3 @@
-// config/database.js - MongoDB database connection
 const mongoose = require('mongoose');
 
 // Function to connect to database
@@ -11,7 +10,7 @@ const connectDB = async () => {
 
     console.log('✅ MongoDB connected successfully!');
     console.log(`📍 Server address: ${conn.connection.host}`);
-    console.log(`🗄️  Database name: ${conn.connection.name}`);
+    console.log(`🗄️ Database name: ${conn.connection.name}`);
     
   } catch (error) {
     console.error('❌ Database connection error:');
