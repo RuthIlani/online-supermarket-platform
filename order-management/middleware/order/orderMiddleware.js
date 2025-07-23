@@ -17,13 +17,7 @@ const preSaveMiddleware = function(next) {
       }
     });
     
-    // Calculate order summary
-    if (!this.orderSummary) {
-      this.orderSummary = {};
-    }
-    
-    this.orderSummary.calculateTotals(this.products);
-    console.log(`📊 Order summary: ${this.orderSummary.totalItems} items, $${this.orderSummary.totalAmount} total`);
+    // (Order summary calculation moved to pre-validate)
     
     next();
   } catch (error) {
@@ -34,6 +28,37 @@ const preSaveMiddleware = function(next) {
 
 // Pre-validate middleware - runs before validation
 const preValidateMiddleware = function(next) {
+    // Ensure all products have up-to-date totalPrice
+    if (Array.isArray(this.products)) {
+      this.products.forEach((product) => {
+        if (!product.totalPrice || product.totalPrice === 0) {
+          if (typeof product.calculateTotal === 'function') {
+            product.calculateTotal();
+          }
+        }
+      });
+    }
+
+    // Calculate order summary before validation
+    if (!this.orderSummary || typeof this.orderSummary.calculateTotals !== 'function') {
+      // Fallback: calculate totals manually
+      let totalItems = 0;
+      let totalAmount = 0;
+      if (Array.isArray(this.products)) {
+        this.products.forEach(p => {
+          totalItems += p.quantity || 0;
+          totalAmount += p.totalPrice || 0;
+        });
+      }
+      this.orderSummary = {
+        totalItems,
+        totalAmount
+      };
+    } else {
+      this.orderSummary.calculateTotals(this.products);
+    }
+    this.$set('orderSummary', this.orderSummary);
+    console.log(`📊 Order summary: ${this.orderSummary.totalItems ?? ''} items, $${this.orderSummary.totalAmount ?? ''} total`);
   try {
     console.log('✅ Validating order data...');
     
