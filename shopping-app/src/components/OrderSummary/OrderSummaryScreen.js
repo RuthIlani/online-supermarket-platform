@@ -79,10 +79,6 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
       const errorMessage = error?.message || t('orderSummary.orderError');
       alert(errorMessage);
       
-      // In a real app, you might want to:
-      // - Send error to logging service (Sentry, LogRocket, etc.)
-      // - Show a proper error dialog instead of alert
-      // - Provide retry functionality
     } finally {
       // Only reset loading state if order didn't succeed (to prevent flash)
       if (!orderSucceeded) {

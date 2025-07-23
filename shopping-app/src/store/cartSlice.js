@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import catalogApi from '../services/catalogApi';
-import api from '../services/api';
+import orderApi from '../services/orderApi';
 
 // Async thunks
 export const fetchCategoriesAndProductsAsync = createAsyncThunk(
@@ -19,7 +19,7 @@ export const submitOrderAsync = createAsyncThunk(
   'cart/submitOrder',
   async (orderData, { rejectWithValue }) => {
     try {
-      const response = await api.submitOrder(orderData);
+      const response = await orderApi.submitOrder(orderData);
       return response;
     } catch (error) {
       return rejectWithValue(error.message);

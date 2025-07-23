@@ -34,37 +34,43 @@ The system is designed to run on Google Cloud Platform using containerized micro
 ## Architecture Diagram
 
 ```
-                    ┌─────────────────┐
-                    │   Internet      │
-                    │   Users         │
-                    └─────────┬───────┘
-                              │
-                    ┌─────────▼───────┐
-                    │  Cloud Load     │
-                    │  Balancer       │
-                    │  (HTTPS/SSL)     │
-                    └─────────┬───────┘
-                              │
-                    ┌─────────▼───────┐
-                    │   Cloud Run     │
-                    │  React App      │
-                    │  (Frontend)     │
-                    └─────────┬───────┘
-                              │
-              ┌───────────────┼───────────────┐
-              │               │               │
-    ┌─────────▼───────┐ ┌─────▼─────┐ ┌──────▼──────┐
-    │   Cloud Run     │ │ Cloud Run │ │   Cloud     │
-    │  .NET Service   │ │ Node.js   │ │   Build     │
-    │  (Products)     │ │ Service   │ │  (CI/CD)    │
-    │                 │ │ (Orders)  │ │             │
-    └─────────┬───────┘ └─────┬─────┘ └─────────────┘
-              │               │
-    ┌─────────▼───────┐ ┌─────▼─────┐
-    │   Cloud SQL     │ │ MongoDB   │
-    │  (Products DB)  │ │  Atlas    │
-    │                 │ │(Orders DB)│
-    └─────────────────┘ └───────────┘
+                         ┌─────────────────┐
+                         │   Internet      │
+                         │   Users         │
+                         └─────────┬───────┘
+                                   │
+                         ┌─────────▼───────┐
+                         │  Cloud Load     │
+                         │  Balancer       │
+                         │  (HTTPS/SSL)     │
+                         └─────────┬───────┘
+                                   │
+                         ┌─────────▼───────┐
+                         │   Cloud Run     │
+                         │  React App      │
+                         │  (Frontend)     │
+                         └─────────┬───────┘
+                                   │
+                   ┌───────────────┼───────────────┐
+                   │               │               │
+         ┌─────────▼───────┐ ┌─────▼─────┐ ┌──────▼──────┐
+         │   Cloud Run     │ │ Cloud Run │ │   Cloud     │
+         │  .NET Service   │ │ Node.js   │ │   Build     │
+         │  (Products)     │ │ Service   │ │  (CI/CD)    │
+         │                 │ │ (Orders)  │ │             │
+         └─────────┬───────┘ └─────┬─────┘ └─────────────┘
+                   │               │
+         ┌─────────▼───────┐ ┌─────▼─────┐
+         │   Cloud SQL     │ │ MongoDB   │
+         │  (Products DB)  │ │  Atlas    │
+         │                 │ │(Orders DB)│
+         └─────────────────┘ └───────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│            Google Cloud Operations & Security Layer             │
+│                    (Cross-cutting concerns)                     │
+│   Monitoring │ Logging │ IAM │ Secret Manager │ Security Center  │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ## Component Roles and Responsibilities
