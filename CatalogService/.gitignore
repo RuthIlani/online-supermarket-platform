@@ -39,6 +39,13 @@ secrets.json
 *password*
 *secret*
 
+# Docker
+.dockerignore
+docker-compose.yml
+docker-compose.override.yml
+**/Dockerfile
+**/*.dockerfile
+
 # Editor
 .vscode/
 

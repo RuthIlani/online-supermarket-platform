@@ -1,0 +1,31 @@
+services:
+  # Catalog Service API (using GCP Cloud SQL)
+  catalog-service:
+    build:
+      context: ../CatalogService
+    container_name: catalog-service
+    env_file:
+      - .env
+    ports:
+      - "7083:8080"
+    networks:
+      - supermarket-network
+    restart: unless-stopped
+
+  # Shopping App Frontend
+  shopping-app:
+    build: ../shopping-app
+    container_name: online-supermarket-shopping-app
+    ports:
+      - "3000:80"
+    depends_on:
+      - catalog-service
+    environment:
+      - NODE_ENV=production
+    networks:
+      - supermarket-network
+    restart: unless-stopped
+
+networks:
+  supermarket-network:
+    driver: bridge

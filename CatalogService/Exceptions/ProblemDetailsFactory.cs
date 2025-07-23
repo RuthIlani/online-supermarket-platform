@@ -56,7 +56,7 @@ namespace CatalogService.Exceptions
 
             var problemDetails = new ProblemDetails
             {
-                //Type = $"https://api.ecommerce.com/errors/{mapping.Type}",
+                Type = $"/errors/{mapping.Type}",
                 Title = mapping.Title,
                 Status = (int)mapping.StatusCode,
                 Detail = exception.Message,

@@ -1,0 +1,11 @@
+# Environment files - NEVER commit these to Git
+.env
+.env.*
+!.env.example
+
+# Docker override files for local development
+docker-compose.override.yml
+
+# Temporary files
+*.tmp
+*.log
