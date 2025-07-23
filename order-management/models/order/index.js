@@ -15,10 +15,7 @@ module.exports = {
   orderIndexes,
   orderMethods,
   orderMiddleware,
-  
-  // Utilities
-  orderHelpers,
-  
+
   // Quick access to commonly used functions
   helpers: {
     generateOrderId: orderHelpers.generateOrderId,
