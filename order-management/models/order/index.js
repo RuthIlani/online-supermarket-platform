@@ -14,14 +14,5 @@ module.exports = {
   // Components
   orderIndexes,
   orderMethods,
-  orderMiddleware,
-
-  // Quick access to commonly used functions
-  helpers: {
-    generateOrderId: orderHelpers.generateOrderId,
-    formatCurrency: orderHelpers.formatCurrency,
-    formatDate: orderHelpers.formatDate,
-    validateOrderId: orderHelpers.validateOrderId,
-    calculateProductTotal: orderHelpers.calculateProductTotal
-  }
+  orderMiddleware
 };
