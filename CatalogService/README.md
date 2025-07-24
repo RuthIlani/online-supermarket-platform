@@ -7,16 +7,16 @@ A comprehensive .NET 8 ASP.NET Core Web API for supermarket catalog management w
 ```bash
 docker run -d \
   --name catalog-service \
-  -p 7023:7023 \
+  -p 7083:7083 \
   -e SQL_CONNECTION_STRING="[YOUR_SQL_CONNECTION_STRING]" \
   ilani/online-supermarket-platform:latest
 ```
 
 **Then access:**
-- 📚 **API Documentation**: http://localhost:7023/swagger *(Development mode only)*
-- ❤️ **Health Check**: http://localhost:7023/health
-- 🛒 **Products API**: http://localhost:7023/api/products
-- 📂 **Categories API**: http://localhost:7023/api/categories
+- 📚 **API Documentation**: http://localhost:7083/swagger *(Development mode only)*
+- ❤️ **Health Check**: http://localhost:7083/health
+- 🛒 **Products API**: http://localhost:7083/api/products
+- 📂 **Categories API**: http://localhost:7083/api/categories
 
 **Stop the service:**
 ```bash
@@ -96,11 +96,11 @@ dotnet run
 
 ```bash
 # Test health endpoint
-curl http://localhost:7023/health
+curl http://localhost:7083/health
 
 # Test API endpoints
-curl http://localhost:7023/api/products
-curl http://localhost:7023/api/categories
+curl http://localhost:7083/api/products
+curl http://localhost:7083/api/categories
 ```
 
 ## 📚 Documentation
@@ -147,7 +147,7 @@ docker logs catalog-service
 ### Database connection errors
 ```bash
 # Test health endpoint
-curl http://localhost:7023/health/detailed
+curl http://localhost:7083/health/detailed
 
 # Check environment variables
 docker exec catalog-service env | grep SQL
@@ -156,7 +156,7 @@ docker exec catalog-service env | grep SQL
 ### Port conflicts
 ```bash
 # Use different port
-docker run -p 9080:7023 ilani/online-supermarket-platform:latest
+docker run -p 9080:7083 ilani/online-supermarket-platform:latest
 # Then access: http://localhost:9080/swagger
 ```
 
