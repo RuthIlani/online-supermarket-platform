@@ -75,7 +75,7 @@ docker pull ilani/online-supermarket-platform:latest
 Server=HOST,PORT;Database=DATABASE;User Id=USERNAME;Password=PASSWORD;Encrypt=true;TrustServerCertificate=true;
 ```
 
-## �️ Development Setup
+## 🛠️ Development Setup
 
 ```bash
 # 1. Clone repository
@@ -101,7 +101,73 @@ curl http://localhost:8080/health
 # Test API endpoints
 curl http://localhost:8080/api/products
 curl http://localhost:8080/api/categories
-
 ```
 
-🎉 Success! Your Catalog Service provides interactive API docs at `/swagger` and health monitoring at `/health`.**
+## 📚 Documentation
+
+- **[Secret Management Guide](docs/secret-management.md)** - Complete guide for managing secrets
+- **[Docker Hub Deployment](docs/docker-hub-deployment.md)** - Deploy to Docker Hub
+- **[Docker Deployment Guide](docs/docker-deployment.md)** - Docker deployment instructions
+- **[Health Checks Documentation](docs/HealthChecks.md)** - Health check system details
+
+## 🐳 Docker Hub Repository
+
+- **Repository**: `ilani/online-supermarket-platform`
+- **Tags**: `latest`, version numbers (v1.0.0, v1.1.0, etc.)
+- **Architectures**: linux/amd64, linux/arm64
+- **Auto-built**: Updates automatically on Git push
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🆘 Quick Troubleshooting
+
+### Container not starting
+```bash
+# Check container logs
+docker logs catalog-service
+
+# Common issues:
+# - Wrong connection string format
+# - Database not accessible
+# - Port already in use
+```
+
+### Database connection errors
+```bash
+# Test health endpoint
+curl http://localhost:8080/health/detailed
+
+# Check environment variables
+docker exec catalog-service env | grep SQL
+```
+
+### Port conflicts
+```bash
+# Use different port
+docker run -p 9080:8080 ilani/online-supermarket-platform:latest
+# Then access: http://localhost:9080/swagger
+```
+
+---
+
+## 🎉 Success!
+
+Once running, your Catalog Service provides:
+- 📚 **Interactive API docs** at `/swagger`
+- ❤️ **Health monitoring** at `/health`
+- 🛒 **Product catalog API** at `/api/products`
+- 📂 **Category management** at `/api/categories`
+
+**Happy coding! 🚀**
