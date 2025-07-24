@@ -1,6 +1,6 @@
-# Digital Shopping Platform - Documentation
+# Online Shopping Platform - Documentation
 
-Welcome to the Digital Shopping Platform documentation. This repository contains comprehensive documentation for the entire system architecture, implementation details, and deployment strategies.
+Welcome to the Online Shopping Platform documentation. This repository contains comprehensive documentation for the entire system architecture, implementation details, and deployment strategies.
 
 ## 📚 Documentation Structure
 
@@ -22,7 +22,7 @@ Google Cloud Platform deployment architecture and DevOps practices:
 
 ## 🏗️ System Overview
 
-The Digital Shopping Platform is a modern, microservices-based e-commerce solution built for supermarkets to provide digital shopping experiences. The system consists of:
+The Online Shopping Platform is a modern, microservices-based e-commerce solution built for supermarkets to provide digital shopping experiences. The system consists of:
 
 - **Frontend**: React application with Redux state management
 - **Products Service**: .NET 8 API for catalog management
@@ -60,11 +60,6 @@ The Digital Shopping Platform is a modern, microservices-based e-commerce soluti
 2. **Cloud Deployment**: Review [Cloud Architecture](./cloud-architecture.md) for deployment and infrastructure details
 3. **Implementation**: Check the current implementation status and upcoming features
 
-## 📞 Contact & Contribution
-
-This documentation is maintained as part of the Digital Shopping Platform project. For questions or contributions, please refer to the main repository README.
-
 ---
 
-*Last updated: [Current Date]*  
 *Version: 1.0*

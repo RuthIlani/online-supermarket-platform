@@ -1,8 +1,8 @@
-# System Design Document - Digital Shopping Platform
+# System Design Document - Online Shopping Platform
 
 ## Executive Summary
 
-**Digital Shopping Platform for Supermarket**
+**Online Shopping Platform for Supermarket**
 
 The system provides an end-to-end solution for digital shopping, enabling customers to select products by categories and place orders online. The platform consists of an intuitive user interface for product selection and an advanced order management system, addressing the supermarket's business needs in the digital era.
 
@@ -70,6 +70,29 @@ The system consists of three main components:
 3. Confirm order and send to server
 4. Save order in MongoDB
 
+## System Data Flow
+
+```mermaid
+graph TB
+    User[👤 User] --> React[⚛️ React Application<br/>Redux State Management]
+    
+    React -->|GET /categories<br/>GET /products| Products[🔗 .NET Products Service<br/>Entity Framework]
+    React -->|POST /orders<br/>Customer + Cart Data| Orders[🔗 Node.js Orders Service<br/>Express.js]
+    
+    Products -->|SQL Queries| CloudSQL[(📊 Cloud SQL<br/>Products & Categories)]
+    Orders -->|Document Storage| MongoDB[(📊 MongoDB Atlas<br/>Orders & Customers)]
+    
+    React -.->|State Updates| Cart[🛒 Shopping Cart<br/>Redux Store]
+    
+    style User fill:#e1f5fe
+    style React fill:#f3e5f5
+    style Products fill:#e8f5e8
+    style Orders fill:#fff3e0
+    style CloudSQL fill:#e3f2fd
+    style MongoDB fill:#f1f8e9
+    style Cart fill:#fce4ec
+```
+
 ## Implementation Status
 
 ### Currently Implemented ✅
@@ -88,4 +111,4 @@ The system consists of three main components:
 
 ---
 
-*This document is under continuous development and will be updated according to project progress*
+*This document is under cont

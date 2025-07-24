@@ -1,6 +1,6 @@
-# System Data Flow - Digital Shopping Platform
+# System Data Flow - Online Shopping Platform
 
-This document illustrates the data flow between all system components in the Digital Shopping Platform.
+This document illustrates the data flow between all system components in the Online Shopping Platform.
 
 ## Current System Data Flow
 

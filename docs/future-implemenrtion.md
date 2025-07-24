@@ -1,6 +1,6 @@
-# Future Implementation Plan - Digital Shopping Platform
+# Future Implementation Plan - Online Shopping Platform
 
-This document outlines the planned enhancements and scalability improvements for the Digital Shopping Platform, including advanced microservices architecture and event-driven processing.
+This document outlines the planned enhancements and scalability improvements for the Online Shopping Platform, including advanced microservices architecture and event-driven processing.
 
 ## Enhanced Architecture Overview
 
@@ -47,6 +47,90 @@ graph TB
     style Gateway fill:#fff3e0
     style Kafka fill:#ffebee
     style Redis fill:#f1f8e9
+```
+
+## Container Architecture Diagram
+
+```mermaid
+graph TB
+    subgraph "Google Cloud Platform"
+        subgraph "GKE Cluster"
+            subgraph "Namespace: production"
+                subgraph "API Gateway Pod"
+                    GW_Container[🐳 Kong Container<br/>Port: 8000]
+                end
+                
+                subgraph "Frontend Pods (3 replicas)"
+                    React_Container[🐳 Nginx + React<br/>Port: 80]
+                end
+                
+                subgraph "Products Service Pods (5 replicas)"
+                    Products_Container[🐳 .NET 8 Container<br/>Port: 8080]
+                end
+                
+                subgraph "Orders Service Pods (5 replicas)"
+                    Orders_Container[🐳 Node.js Container<br/>Port: 3000]
+                end
+                
+                subgraph "Auth Service Pods (3 replicas)"
+                    Auth_Container[🐳 Node.js Container<br/>Port: 3001]
+                end
+                
+                subgraph "Cart Service Pods (3 replicas)"
+                    Cart_Container[🐳 Node.js Container<br/>Port: 3002]
+                end
+            end
+            
+            subgraph "Namespace: data"
+                subgraph "Redis Cluster"
+                    Redis_Master[🐳 Redis Master<br/>Port: 6379]
+                    Redis_Replica[🐳 Redis Replica<br/>Port: 6379]
+                end
+                
+                subgraph "Kafka Cluster"
+                    Kafka_Pod[🐳 Kafka Broker<br/>Port: 9092]
+                    Zookeeper_Pod[🐳 Zookeeper<br/>Port: 2181]
+                end
+            end
+            
+            subgraph "Namespace: monitoring"
+                Prometheus_Pod[🐳 Prometheus<br/>Port: 9090]
+                Grafana_Pod[🐳 Grafana<br/>Port: 3000]
+            end
+        end
+        
+        subgraph "Managed Services"
+            CloudSQL[(☁️ Cloud SQL<br/>Managed Database)]
+            MongoDB[(☁️ MongoDB Atlas<br/>External Service)]
+            LoadBalancer[☁️ Cloud Load Balancer]
+        end
+    end
+    
+    Internet[🌐 Internet] --> LoadBalancer
+    LoadBalancer --> GW_Container
+    
+    GW_Container --> React_Container
+    GW_Container --> Products_Container
+    GW_Container --> Orders_Container
+    GW_Container --> Auth_Container
+    GW_Container --> Cart_Container
+    
+    Products_Container --> CloudSQL
+    Orders_Container --> MongoDB
+    Cart_Container --> Redis_Master
+    Orders_Container --> Kafka_Pod
+    
+    Redis_Master --> Redis_Replica
+    Kafka_Pod --> Zookeeper_Pod
+    
+    style GW_Container fill:#e3f2fd
+    style React_Container fill:#f3e5f5
+    style Products_Container fill:#e8f5e8
+    style Orders_Container fill:#fff3e0
+    style Auth_Container fill:#f1f8e9
+    style Cart_Container fill:#fce4ec
+    style Redis_Master fill:#ffebee
+    style Kafka_Pod fill:#e0f2f1
 ```
 
 ## Component Details
@@ -378,47 +462,5 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 5
 ```
-
-## Performance & Scalability Targets
-
-### Performance Metrics
-- **API Response Time**: < 200ms (95th percentile)
-- **Page Load Time**: < 2 seconds
-- **Database Query Time**: < 50ms average
-- **Event Processing Latency**: < 100ms
-
-### Scalability Targets
-- **Concurrent Users**: 100,000+
-- **Orders per Second**: 1,000+
-- **Data Storage**: 10TB+ with auto-scaling
-- **Global Availability**: 99.9% uptime
-
-## Implementation Phases
-
-### Phase 1: API Gateway & Load Balancing (Month 1-2)
-- Deploy API Gateway
-- Implement multi-region load balancing
-- Add authentication service
-- Performance testing
-
-### Phase 2: Event-Driven Architecture (Month 3-4)
-- Apache Kafka setup
-- Implement cart service with Redis
-- Order processing events
-- Notification service
-
-### Phase 3: Database Optimization (Month 5-6)
-- Database partitioning implementation
-- Read replica setup
-- MongoDB sharding
-- Performance optimization
-
-### Phase 4: Advanced Analytics (Month 7-8)
-- Analytics service development
-- Business intelligence dashboards
-- A/B testing framework
-- Machine learning recommendations
-
----
 
 *This roadmap provides a scalable foundation for handling enterprise-level traffic and complex business requirements*

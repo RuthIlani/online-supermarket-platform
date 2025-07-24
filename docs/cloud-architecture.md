@@ -1,8 +1,8 @@
-# Cloud Architecture - Digital Shopping Platform
+# Cloud Architecture - Online Shopping Platform
 
 ## Overview
 
-The Digital Shopping Platform is deployed on Google Cloud Platform (GCP) using a containerized microservices architecture. The system leverages Cloud Run for serverless container deployment, ensuring scalability, cost-efficiency, and simplified management.
+The Online Shopping Platform is deployed on Google Cloud Platform (GCP) using a containerized microservices architecture. The system leverages Cloud Run for serverless container deployment, ensuring scalability, cost-efficiency, and simplified management.
 
 ## Implementation Status
 
