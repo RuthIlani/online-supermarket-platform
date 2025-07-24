@@ -36,7 +36,7 @@ The Online Shopping Platform is a modern, microservices-based e-commerce solutio
 |-----------|------------|---------|---------------|
 | Frontend | React + Redux | ✅ Implemented | [System Design](./system-design.md#client-application-react--redux) |
 | Products API | .NET 8 + EF | ✅ Implemented | [System Design](./system-design.md#products-service-net-8) |
-| Orders API | Node.js + Express | 🔄 In Progress | [System Design](./system-design.md#orders-service-nodejs) |
+| Orders API | Node.js + Express | ✅ Implemented | [System Design](./system-design.md#orders-service-nodejs) |
 | Cloud Infrastructure | GCP | 🔄 In Progress | [Cloud Architecture](./cloud-architecture.md) |
 
 ## 📋 Implementation Status
