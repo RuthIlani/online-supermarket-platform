@@ -49,7 +49,6 @@ The Online Shopping Platform is a modern, microservices-based e-commerce solutio
 - MongoDB Atlas integration
 
 ### 🔄 In Progress
-- Node.js service Docker containerization
 - Complete GCP deployment pipeline
 - CI/CD automation with Cloud Build
 - Monitoring and logging setup

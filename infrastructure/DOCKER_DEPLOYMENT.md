@@ -181,7 +181,6 @@ Connect to SQL Server:
 # Using Docker exec
 docker exec -it catalog-sqlserver /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "YourStrong@Passw0rd"
 
-# Using external tools (SQL Server Management Studio, Azure Data Studio)
 # Server: localhost,1433
 # Username: sa
 # Password: YourStrong@Passw0rd
