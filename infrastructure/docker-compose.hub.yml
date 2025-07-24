@@ -17,6 +17,8 @@ services:
   shopping-app:
     build:
       context: ../shopping-app
+      args:
+        REACT_APP_CATALOG_API_URL: http://localhost:7083/api
     image: ilani/online-supermarket-shopping-app:latest
     container_name: online-supermarket-shopping-app
     ports:
@@ -25,7 +27,6 @@ services:
       - catalog-service
     environment:
       - NODE_ENV=production
-      - REACT_APP_CATALOG_API_URL=http://localhost:7083/api
     networks:
       - supermarket-network
     restart: unless-stopped
