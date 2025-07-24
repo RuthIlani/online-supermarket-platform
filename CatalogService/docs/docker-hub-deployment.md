@@ -11,7 +11,7 @@ Once your image is on Docker Hub, anyone can run it with:
 docker run -d \
   --name catalog-service \
   -p 8080:8080 \
-  -e SQL_CONNECTION_STRING="Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" \
+  -e SQL_CONNECTION_STRING="YOUR_SQL_CONNECTION_STRING_HERE" \
   ilani/online-supermarket-platform:latest
 
 # Open browser: http://localhost:8080/swagger

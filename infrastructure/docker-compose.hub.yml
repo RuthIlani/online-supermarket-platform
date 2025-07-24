@@ -1,6 +1,8 @@
 services:
   # Catalog Service API (using GCP Cloud SQL)
   catalog-service:
+    build:
+      context: ../CatalogService
     image: ilani/online-supermarket-catalog-service:latest
     container_name: catalog-service
     env_file:
@@ -13,6 +15,8 @@ services:
 
   # Shopping App Frontend
   shopping-app:
+    build:
+      context: ../shopping-app
     image: ilani/online-supermarket-shopping-app:latest
     container_name: online-supermarket-shopping-app
     ports:
@@ -21,6 +25,22 @@ services:
       - catalog-service
     environment:
       - NODE_ENV=production
+    networks:
+      - supermarket-network
+    restart: unless-stopped
+
+  # Order Management Service
+  order-management:
+    build:
+      context: ../order-management
+    image: ilani/order-management:latest
+    container_name: order-management
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - "3001:3000"
     networks:
       - supermarket-network
     restart: unless-stopped

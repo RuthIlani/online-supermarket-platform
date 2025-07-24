@@ -25,6 +25,19 @@ services:
     networks:
       - supermarket-network
     restart: unless-stopped
+  # Order Management Service
+  order-management:
+    image: ilani/order-management:latest
+    container_name: order-management
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - "3001:3000"
+    networks:
+      - supermarket-network
+    restart: unless-stopped
 
 networks:
   supermarket-network:

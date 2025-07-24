@@ -2,6 +2,10 @@
 
 **Run the complete supermarket application in under 2 minutes!**
 
+> ⚠️ **Important**: This guide uses placeholder values for database connections. Contact the project owner to get the actual connection strings for:
+> - `YOUR_SQL_CONNECTION_STRING_HERE` (for catalog-service)
+> - `YOUR_MONGODB_CONNECTION_STRING_HERE` (for order-management)
+
 ## 📋 What You Need
 - Docker installed on your computer
 - Internet connection
@@ -35,7 +39,7 @@ docker run -d \
 docker run -d \
   --name catalog-service \
   -p 7083:8080 \
-  -e SQL_CONNECTION_STRING="Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" \
+  -e SQL_CONNECTION_STRING="YOUR_SQL_CONNECTION_STRING_HERE" \
   -e ASPNETCORE_ENVIRONMENT=Production \
   ilani/online-supermarket-catalog-service:latest
 
@@ -44,15 +48,26 @@ docker run -d \
   --name shopping-app \
   -p 3000:80 \
   ilani/online-supermarket-shopping-app:latest
+
+# Run the order management service
+docker run -d \
+  --name order-management \
+  -p 3001:3000 \
+  -e NODE_ENV=production \
+  -e MONGODB_URI="YOUR_MONGODB_CONNECTION_STRING_HERE" \
+  ilani/order-management:latest
 ```
 
 **Windows PowerShell version:**
 ```powershell
 # Run the API service
-docker run -d --name catalog-service -p 7083:8080 -e "SQL_CONNECTION_STRING=Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" -e "ASPNETCORE_ENVIRONMENT=Production" ilani/online-supermarket-catalog-service:latest
+docker run -d --name catalog-service -p 7083:8080 -e "SQL_CONNECTION_STRING=YOUR_SQL_CONNECTION_STRING_HERE" -e "ASPNETCORE_ENVIRONMENT=Production" ilani/online-supermarket-catalog-service:latest
 
 # Run the shopping app  
 docker run -d --name shopping-app -p 3000:80 ilani/online-supermarket-shopping-app:latest
+
+# Run the order management service
+docker run -d --name order-management -p 3001:3000 -e "NODE_ENV=production" -e "MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING_HERE" ilani/order-management:latest
 ```
 
 ### Option B: Using Docker Compose (Fastest) ⭐
@@ -70,7 +85,7 @@ services:
     container_name: catalog-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - SQL_CONNECTION_STRING=Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;
+      - SQL_CONNECTION_STRING=YOUR_SQL_CONNECTION_STRING_HERE
       - ASPNETCORE_URLS=http://+:8080
     ports:
       - "7083:8080"
@@ -87,6 +102,18 @@ services:
       - catalog-service
     environment:
       - NODE_ENV=production
+    networks:
+      - supermarket-network
+    restart: unless-stopped
+
+  order-management:
+    image: ilani/order-management:latest
+    container_name: order-management
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING_HERE
+    ports:
+      - "3001:3000"
     networks:
       - supermarket-network
     restart: unless-stopped
@@ -110,7 +137,7 @@ services:
     container_name: catalog-service
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - SQL_CONNECTION_STRING=Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;
+      - SQL_CONNECTION_STRING=YOUR_SQL_CONNECTION_STRING_HERE
       - ASPNETCORE_URLS=http://+:8080
     ports:
       - "7083:8080"
@@ -127,6 +154,18 @@ services:
       - catalog-service
     environment:
       - NODE_ENV=production
+    networks:
+      - supermarket-network
+    restart: unless-stopped
+
+  order-management:
+    image: ilani/order-management:latest
+    container_name: order-management
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=YOUR_MONGODB_CONNECTION_STRING_HERE
+    ports:
+      - "3001:3000"
     networks:
       - supermarket-network
     restart: unless-stopped
@@ -162,6 +201,7 @@ After running the commands above:
 - **🔧 API Health Check**: http://localhost:7083/health
 - **📦 API Products**: http://localhost:7083/api/products
 - **📊 API Categories**: http://localhost:7083/api/categories
+- **🛍️ Order Management**: http://localhost:3001
 
 ## ✅ Verify Everything Works
 

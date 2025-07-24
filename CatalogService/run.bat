@@ -24,7 +24,7 @@ echo ?? Starting new container...
 docker run -d ^
   --name catalog-service ^
   -p 8080:8080 ^
-  -e SQL_CONNECTION_STRING="Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" ^
+  -e SQL_CONNECTION_STRING="YOUR_SQL_CONNECTION_STRING_HERE" ^
   -e ASPNETCORE_ENVIRONMENT=Production ^
   --restart unless-stopped ^
   ilani/online-supermarket-platform:latest

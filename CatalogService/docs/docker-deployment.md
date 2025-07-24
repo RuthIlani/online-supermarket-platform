@@ -14,7 +14,7 @@ cp .env.example .env
 
 2. **Edit `.env` file** with your actual credentials:
 ```env
-SQL_CONNECTION_STRING=Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;
+SQL_CONNECTION_STRING=YOUR_SQL_CONNECTION_STRING_HERE
 ```
 
 3. **Run with Docker Compose**:
@@ -27,7 +27,7 @@ docker-compose up -d
 1. **Create Docker secrets**:
 ```bash
 # Create the connection string as a Docker secret
-echo "Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" | docker secret create sql_connection_string -
+echo "YOUR_SQL_CONNECTION_STRING_HERE" | docker secret create sql_connection_string -
 ```
 
 2. **Use Docker Compose with secrets**:
@@ -58,7 +58,7 @@ docker run -d \
   --name catalog-service \
   -p 8080:8080 \
   -e ASPNETCORE_ENVIRONMENT=Production \
-  -e SQL_CONNECTION_STRING="Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" \
+  -e SQL_CONNECTION_STRING="YOUR_SQL_CONNECTION_STRING_HERE" \
   catalog-service
 ```
 
@@ -112,7 +112,7 @@ docker run -d \
   --name catalog-service \
   -p 8080:8080 \
   -e ASPNETCORE_ENVIRONMENT=Production \
-  -e SQL_CONNECTION_STRING="Server=35.224.255.219,1433;Database=SupermarketCatalog;User Id=sqlserver;Password=superSqlServer;Encrypt=true;TrustServerCertificate=true;" \
+  -e SQL_CONNECTION_STRING="YOUR_SQL_CONNECTION_STRING_HERE" \
   --restart unless-stopped \
   catalog-service
 ```
