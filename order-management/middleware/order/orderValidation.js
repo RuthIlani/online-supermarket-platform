@@ -29,21 +29,20 @@ const validateCreateOrder = [
     .withMessage('Name is required')
     .isLength({ min: 2, max: 100 })
     .withMessage('Name must be between 2 and 100 characters')
-    .matches(/^[a-zA-Z\s]+$/)
-    .withMessage('Name can only contain letters and spaces'),
-  
+    .matches(/^[a-zA-Z\u0590-\u05FF\s]+$/)
+    .withMessage('Name can only contain letters (English/Hebrew) and spaces'),
+
   body('customer.email')
     .isEmail()
     .normalizeEmail()
     .withMessage('Please provide a valid email address'),
-  
+
   body('customer.address')
     .trim()
     .notEmpty()
     .withMessage('Address is required')
     .isLength({ min: 10, max: 200 })
     .withMessage('Address must be between 10 and 200 characters'),
-  
   // Products validation
   body('products')
     .isArray({ min: 1 })

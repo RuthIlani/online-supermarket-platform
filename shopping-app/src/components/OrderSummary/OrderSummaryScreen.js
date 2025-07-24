@@ -63,22 +63,21 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
       console.log('About to submit order:', orderData);
       const result = await dispatch(submitOrderAsync(orderData)).unwrap();
       console.log('Order submission result:', result);
-      orderSucceeded = true;
-      
-      console.log('Order submitted successfully, calling onOrderSuccess');
-      // Navigate immediately without setting isNavigating to avoid flash
+      orderSucceeded = result && result.success;
+
       if (onOrderSuccess) {
+        console.log('Order submitted successfully, calling onOrderSuccess');
         onOrderSuccess();
       }
     } catch (error) {
       console.error('Order submission failed:', error);
       // In production, you would log this to a proper logging service
       // console.error('Order submission error:', error);
-      
+
       // Show user-friendly error message
       const errorMessage = error?.message || t('orderSummary.orderError');
       alert(errorMessage);
-      
+
     } finally {
       // Only reset loading state if order didn't succeed (to prevent flash)
       if (!orderSucceeded) {
@@ -105,19 +104,19 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
   return (
     <div className="order-summary-screen rtl" dir="rtl">
       <OrderHeader onBackToShopping={onBackToShopping} />
-      
+
       <div className="order-content">
         <div className="order-main">
-          <CustomerDetailsForm 
+          <CustomerDetailsForm
             customerDetails={customerDetails}
             onChange={handleCustomerDetailsChange}
           />
-          
+
           <OrderItemsList items={cartItems} />
         </div>
-        
+
         <div className="order-sidebar">
-          <OrderTotal 
+          <OrderTotal
             subtotal={totalPrice}
             deliveryFee={deliveryFee}
             total={finalTotal}
