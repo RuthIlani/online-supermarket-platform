@@ -25,6 +25,7 @@ services:
       - catalog-service
     environment:
       - NODE_ENV=production
+      - REACT_APP_CATALOG_API_URL=http://localhost:7083/api
     networks:
       - supermarket-network
     restart: unless-stopped
