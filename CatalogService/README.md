@@ -27,7 +27,7 @@ docker stop catalog-service && docker rm catalog-service
 
 ```bash
 # Pull the latest image
-docker pull ilani/online-supermarket-platform:latest
+docker pull ilani/online-supermarket-catalog-service:latest
 ```
 
 **Multi-architecture support:** linux/amd64, linux/arm64
@@ -105,29 +105,16 @@ curl http://localhost:7083/api/categories
 
 ## 📚 Documentation
 
-- **[Secret Management Guide](docs/secret-management.md)** - Complete guide for managing secrets
 - **[Docker Hub Deployment](docs/docker-hub-deployment.md)** - Deploy to Docker Hub
 - **[Docker Deployment Guide](docs/docker-deployment.md)** - Docker deployment instructions
 - **[Health Checks Documentation](docs/HealthChecks.md)** - Health check system details
 
 ## 🐳 Docker Hub Repository
 
-- **Repository**: `ilani/online-supermarket-platform`
+- **Repository**: `ilani/online-supermarket-catalog-service`
 - **Tags**: `latest`, version numbers (v1.0.0, v1.1.0, etc.)
 - **Architectures**: linux/amd64, linux/arm64
 - **Auto-built**: Updates automatically on Git push
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
