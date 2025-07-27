@@ -103,7 +103,6 @@ graph TB
 - **MongoDB Atlas** - Account created and storing order data
 
 ### Future Implementation 🔄
-- Docker containerization for Node.js service
 - Complete GCP deployment pipeline
 - CI/CD automation with Cloud Build
 - Monitoring and logging setup
