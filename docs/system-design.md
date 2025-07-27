@@ -98,7 +98,7 @@ graph TB
 ### Currently Implemented ✅
 - **React Application** - Fully implemented with Docker containerization
 - **.NET Products Service** - Implemented with Docker containerization
-- **Node.js Orders Service** - Implemented and functional (Docker pending)
+- **Node.js Orders Service** - Implemented and functional
 - **Cloud SQL** - Configured and operational in GCP
 - **MongoDB Atlas** - Account created and storing order data
 
