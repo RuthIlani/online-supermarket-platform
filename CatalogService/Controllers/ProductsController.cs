@@ -28,5 +28,12 @@ namespace CatalogService.Controllers
             var product = await _productService.GetByIdAsync(id);
             return Ok(product);
         }
+
+        [HttpGet("{id}/price")]
+        public async Task<ActionResult<decimal>> GetProductPrice(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            return Ok(product.Price);
+        }
     }
 }

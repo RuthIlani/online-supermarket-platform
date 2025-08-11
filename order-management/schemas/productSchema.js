@@ -31,14 +31,19 @@ const productSchema = new mongoose.Schema({
     max: [1000, 'Quantity cannot exceed 1000']
   },
   unitPrice: {
-    type: Number,
-    required: [true, 'Unit price is required'],
-    min: [0.01, 'Unit price must be at least 0.01'],
-    max: [100000, 'Unit price cannot exceed 100000']
+  type: Number,
+  // Client must NOT send this; server always fetches authoritative price from CatalogService
+  min: [0.01, 'Unit price must be at least 0.01'],
+  max: [100000, 'Unit price cannot exceed 100000']
   },
   totalPrice: {
     type: Number,
-    min: [0.01, 'Total price must be at least 0.01']
+    min: [0.01, 'Total price must be at least 0.01'],
+    // Ignore client-provided totalPrice: always recalculate server-side
+    set: function(_) {
+      // Prevent setting from client payload
+      return this.totalPrice;
+    }
   }
 }, { 
   _id: false 
@@ -74,15 +79,9 @@ productSchema.methods.validateData = function() {
     errors.push('Quantity must be at least 1');
   }
   
-  if (!this.unitPrice || this.unitPrice < 0.01) {
-    errors.push('Unit price must be at least 0.01');
-  }
+  // unitPrice is always populated server-side; no client-side validation needed here
   
-  // Check if total price matches calculation
-  const expectedTotal = Math.round(this.quantity * this.unitPrice * 100) / 100;
-  if (this.totalPrice && Math.abs(this.totalPrice - expectedTotal) > 0.01) {
-    errors.push(`Total price mismatch. Expected: ${expectedTotal}, Got: ${this.totalPrice}`);
-  }
+  // totalPrice will be calculated server-side; no need to validate client-provided value
   
   return errors;
 };
