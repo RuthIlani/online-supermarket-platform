@@ -11,25 +11,16 @@ const orderApi = {
           email: orderData.customerDetails?.email || '',
           address: orderData.customerDetails?.address || ''
         },
-        products: []
-      };
-      
-      // Only send identifiers and quantities; server computes prices
-      const items = Array.isArray(orderData.items) ? orderData.items : [];
-      serverOrderData.products = items.map((item) => {
-        const productId = item.id || item.productId;
-        if (!productId) {
-          throw new Error('Missing productId for an order item');
-        }
-        return {
-          productId,
+        products: orderData.items?.map(item => ({
+          productId: item.id || item.productId || `P${Math.floor(Math.random() * 1000)}`,
           productName: item.name || item.productName || 'Unknown Product',
           categoryId: item.categoryId,
           categoryName: item.categoryName,
-          quantity: item.quantity
-        };
-      });
-
+          quantity: item.quantity,
+          unitPrice: parseFloat(item.price || item.unitPrice || 0)
+        })) || []
+      };
+      
       console.log('Submitting transformed order to server:', serverOrderData);
       
       const response = await fetch('http://localhost:3001/api/orders', {

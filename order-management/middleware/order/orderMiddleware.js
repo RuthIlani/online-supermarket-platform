@@ -9,10 +9,12 @@ const preSaveMiddleware = function(next) {
       return next(new Error('At least one product is required'));
     }
 
-    // Calculate total price for each product (override any incoming value)
+    // Calculate total price for each product
     this.products.forEach((product, index) => {
-      product.calculateTotal();
-      console.log(`💰 Calculated total for ${product.productName}: $${product.totalPrice}`);
+      if (!product.totalPrice || product.totalPrice === 0) {
+        product.calculateTotal();
+        console.log(`💰 Calculated total for ${product.productName}: $${product.totalPrice}`);
+      }
     });
     
     // (Order summary calculation moved to pre-validate)
@@ -24,44 +26,15 @@ const preSaveMiddleware = function(next) {
   }
 };
 
-// Ensure fetch is available in Node: prefer global (Node 18+), else dynamic import node-fetch
-const fetchFn = global.fetch || (async (...args) => (await import('node-fetch')).default(...args));
-
-// Helper: fetch product price from CatalogService
-async function getProductPrice(productId) {
-  const baseUrl = process.env.CATALOG_API_URL || 'http://localhost:5225/api';
-  const url = `${baseUrl}/products/${productId}/price`;
-  const res = await fetchFn(url, { headers: { 'Accept': 'application/json' } });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch price for product ${productId}: ${res.status}`);
-  }
-  const text = await res.text();
-  const price = Number(text);
-  if (Number.isNaN(price)) {
-    throw new Error(`Invalid price value for product ${productId}: ${text}`);
-  }
-  return price;
-}
-
 // Pre-validate middleware - runs before validation
-const preValidateMiddleware = async function(next) {
-  try {
-    // Always fetch authoritative unitPrice from CatalogService (ignore any client values)
-    if (Array.isArray(this.products)) {
-      for (const p of this.products) {
-        if (p) {
-          p.unitPrice = await getProductPrice(p.productId);
-        }
-      }
-    }
-  } catch (err) {
-    return next(err);
-  }
+const preValidateMiddleware = function(next) {
     // Ensure all products have up-to-date totalPrice
     if (Array.isArray(this.products)) {
       this.products.forEach((product) => {
-        if (typeof product.calculateTotal === 'function') {
-          product.calculateTotal();
+        if (!product.totalPrice || product.totalPrice === 0) {
+          if (typeof product.calculateTotal === 'function') {
+            product.calculateTotal();
+          }
         }
       });
     }
@@ -122,7 +95,7 @@ const preValidateMiddleware = async function(next) {
     }
     
     console.log('✅ All validations passed');
-  next();
+    next();
   } catch (error) {
     console.error('❌ Error in validation middleware:', error.message);
     next(error);

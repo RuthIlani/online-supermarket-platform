@@ -78,23 +78,9 @@ const validateCreateOrder = [
     .isInt({ min: 1, max: 1000 })
     .withMessage('Quantity must be a positive integer between 1 and 1000'),
   
-  // For security: client must NOT send unitPrice; server will fetch authoritative price
   body('products.*.unitPrice')
-    .custom((value) => {
-      if (value !== undefined) {
-        throw new Error('Do not include unitPrice in the request');
-      }
-      return true;
-    }),
-
-  // For security: client must NOT send totalPrice; server will compute it
-  body('products.*.totalPrice')
-    .custom((value) => {
-      if (value !== undefined) {
-        throw new Error('Do not include totalPrice in the request');
-      }
-      return true;
-    }),
+    .isFloat({ min: 0.01, max: 100000 })
+    .withMessage('Unit price must be a positive number between 0.01 and 100000'),
   
   handleValidationErrors
 ];

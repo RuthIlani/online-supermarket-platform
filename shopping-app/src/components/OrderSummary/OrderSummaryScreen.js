@@ -55,6 +55,9 @@ const OrderSummaryScreen = ({ onBackToShopping, onOrderSuccess }) => {
       const orderData = {
         customerDetails,
         items: cartItems,
+        totalPrice: finalTotal,
+        deliveryFee,
+        orderDate: new Date().toISOString()
       };
 
       console.log('About to submit order:', orderData);
