@@ -6,7 +6,9 @@ using CatalogService.Repositories;
 using CatalogService.Middleware;
 using CatalogService.HealthChecks;
 using CatalogService.Extensions;
+using CatalogService.Mappings;
 using Microsoft.EntityFrameworkCore;
+using CatalogService.Data;
 using AutoMapper;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 

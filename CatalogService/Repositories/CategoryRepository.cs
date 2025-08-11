@@ -1,3 +1,4 @@
+using CatalogService.Data;
 using CatalogService.Models;
 using CatalogService.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

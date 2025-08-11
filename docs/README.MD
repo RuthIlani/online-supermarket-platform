@@ -20,6 +20,21 @@ Google Cloud Platform deployment architecture and DevOps practices:
 - Security and monitoring strategies
 - Scalability and performance optimization
 
+### [System Data Flow](./system_data_flow.md)
+Complete data flow documentation showing how information moves through the system:
+- Current system data flow between React frontend and backend services
+- API endpoint specifications and data models
+- Product catalog and order processing workflows
+- Database interaction patterns and data persistence strategies
+
+### [Future Implementation Plan](./future-implemenrtion.md)
+Roadmap for enhanced microservices architecture and scalability improvements:
+- API Gateway and load balancing for high availability
+- Event-driven architecture with Apache Kafka
+- Enhanced containerization with Kubernetes (GKE)
+- Database partitioning and advanced monitoring
+- Comprehensive CI/CD pipeline with security scanning
+
 ## 🏗️ System Overview
 
 The Online Shopping Platform is a modern, microservices-based e-commerce solution built for supermarkets to provide digital shopping experiences. The system consists of:
@@ -36,7 +51,7 @@ The Online Shopping Platform is a modern, microservices-based e-commerce solutio
 |-----------|------------|---------|---------------|
 | Frontend | React + Redux | ✅ Implemented | [System Design](./system-design.md#client-application-react--redux) |
 | Products API | .NET 8 + EF | ✅ Implemented | [System Design](./system-design.md#products-service-net-8) |
-| Orders API | Node.js + Express | 🔄 In Progress | [System Design](./system-design.md#orders-service-nodejs) |
+| Orders API | Node.js + Express | ✅ Implemented | [System Design](./system-design.md#orders-service-nodejs) |
 | Cloud Infrastructure | GCP | 🔄 In Progress | [Cloud Architecture](./cloud-architecture.md) |
 
 ## 📋 Implementation Status

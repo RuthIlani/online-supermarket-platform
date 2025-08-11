@@ -2,7 +2,7 @@ using AutoMapper;
 using CatalogService.DTOs;
 using CatalogService.Models;
 
-namespace CatalogService
+namespace CatalogService.Mappings
 {
     public class MappingProfile : Profile
     {

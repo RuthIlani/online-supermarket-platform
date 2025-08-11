@@ -45,20 +45,6 @@ docker-compose -f docker-compose.hub.yml up -d
 docker-compose -f docker-compose.hub.yml down
 ```
 
-## 📋 Database Setup Requirements
-
-Before running the commands above, you'll need:
-
-1. **SQL Server Database** - Any SQL Server instance with:
-   - A database for the catalog service
-   - User credentials with read/write access
-
-2. **MongoDB Database** - A MongoDB instance (local or cloud) with:
-   - A database for order management
-   - Connection string with credentials
-
-Replace the placeholders in the setup commands with your actual database information.
-
 ## 🏗️ Architecture
 
 This platform uses microservices architecture:
